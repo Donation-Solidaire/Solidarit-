@@ -1,0 +1,329 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Récupérer et nettoyer les données
+    $name    = htmlspecialchars($_POST['name']);
+    $email   = htmlspecialchars($_POST['email']);
+    $amount  = htmlspecialchars($_POST['amount']);
+    $message = htmlspecialchars($_POST['message']);
+    
+    // Définir l'email de destination et le sujet
+    $to      = "dupondmoretti1973@gmail.com";
+    $subject = "Nouveau don de $name";
+    $body    = "Nom : $name\nEmail : $email\nMontant : $amount\nMessage : $message";
+    
+    // Envoyer l'email
+    if (mail($to, $subject, $body)) {
+        echo "Votre don a été soumis avec succès.";
+    } else {
+        echo "Erreur lors de la soumission du don.";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donation - Accueil</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Donation</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="donation.html">Faire un don</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Bannière avec image -->
+    <section class="banner">
+      <img src="https://via.placeholder.com/800x300.png?text=Donation+Banner" alt="Bannière Donation">
+    </section>
+    
+    <!-- Présentation -->
+    <section class="intro">
+      <h2>Bienvenue sur Donation</h2>
+      <p>Notre mission est de permettre à chacun de faire un don pour aider les plus démunis et de recevoir de l'aide lorsque cela est nécessaire.</p>
+      <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Animation Donation">
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Donation. Tous droits réservés.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donation - Faire un don</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Donation</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="donation.html">Faire un don</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Formulaire de don -->
+    <section class="donation-form">
+      <h2>Faites un don</h2>
+      <!-- Le formulaire doit être traité côté serveur pour envoyer une notification à votre email -->
+      <form id="donationForm" method="POST" action="process_donation.php">
+        <label for="name">Nom :</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="amount">Montant du don :</label>
+        <input type="number" id="amount" name="amount" required>
+        
+        <label for="message">Message :</label>
+        <textarea id="message" name="message"></textarea>
+        
+        <button type="submit">Envoyer le don</button>
+      </form>
+    </section>
+
+    <!-- Section commentaires -->
+    <section class="comments">
+      <h2>Commentaires</h2>
+      <!-- Affichage des commentaires existants -->
+      <div id="commentsList">
+        <div class="comment">
+          <p><strong>Jean :</strong> Merci pour ce beau projet !</p>
+        </div>
+      </div>
+      <!-- Formulaire pour ajouter un commentaire -->
+      <form id="commentForm" method="POST" action="process_comment.php">
+        <label for="commentName">Nom :</label>
+        <input type="text" id="commentName" name="commentName" required>
+        
+        <label for="commentText">Votre commentaire :</label>
+        <textarea id="commentText" name="commentText" required></textarea>
+        
+        <button type="submit">Ajouter un commentaire</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Donation. Tous droits réservés.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donation - Contact</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Donation</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="donation.html">Faire un don</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Informations de contact -->
+    <section class="contact">
+      <h2>Contactez-nous</h2>
+      <p>Pour toute question ou suggestion, envoyez-nous un email à :</p>
+      <p><a href="mailto:dupondmoretti1973@gmail.com">dupondmoretti1973@gmail.com</a></p>
+      
+      <!-- Formulaire de contact -->
+      <form id="contactForm" method="POST" action="process_contact.php">
+        <label for="contactName">Nom :</label>
+        <input type="text" id="contactName" name="contactName" required>
+        
+        <label for="contactEmail">Email :</label>
+        <input type="email" id="contactEmail" name="contactEmail" required>
+        
+        <label for="subject">Sujet :</label>
+        <input type="text" id="subject" name="subject" required>
+        
+        <label for="contactMessage">Message :</label>
+        <textarea id="contactMessage" name="contactMessage" required></textarea>
+        
+        <button type="submit">Envoyer le message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Donation. Tous droits réservés.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
+/* Style de base pour le site Donation */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #008080;
+  color: #fff;
+  padding: 1em 0;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 1em;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.banner img {
+  width: 100%;
+  height: auto;
+}
+
+main {
+  padding: 2em;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+form {
+  background-color: #fff;
+  padding: 1em;
+  border-radius: 5px;
+  margin-top: 1em;
+}
+
+form label {
+  display: block;
+  margin-top: 0.5em;
+}
+
+form input, form textarea, form button {
+  width: 100%;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+form button {
+  background-color: #008080;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #005757;
+}
+
+.comments {
+  margin-top: 2em;
+}
+
+.comment {
+  background-color: #e2e2e2;
+  padding: 0.5em;
+  border-radius: 5px;
+  margin-bottom: 0.5em;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1em 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+/* Script pour gérer les interactions du site Donation */
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Gestion du formulaire de don
+  const donationForm = document.getElementById('donationForm');
+  if (donationForm) {
+    donationForm.addEventListener('submit', function(e) {
+      // Vous pouvez ajouter ici une validation supplémentaire
+      // Intégrez une solution côté serveur ou un service tiers (Formspree, EmailJS, etc.) pour envoyer une notification à dupondmoretti1973@gmail.com
+      alert("Votre don a été soumis. Nous vous remercions pour votre générosité!");
+      // e.preventDefault(); // Décommentez pour tester sans soumission réelle
+    });
+  }
+
+  // Gestion du formulaire de contact
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      // Ajoutez ici votre logique de traitement ou intégration avec un service de mail
+      alert("Votre message a été envoyé. Nous vous répondrons dans les plus brefs délais.");
+      // e.preventDefault(); // Décommentez pour tester sans soumission réelle
+    });
+  }
+
+  // Gestion du formulaire de commentaires
+  const commentForm = document.getElementById('commentForm');
+  if (commentForm) {
+    commentForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('commentName').value;
+      const text = document.getElementById('commentText').value;
+      const commentsList = document.getElementById('commentsList');
+
+      // Création dynamique d’un commentaire
+      const commentDiv = document.createElement('div');
+      commentDiv.classList.add('comment');
+      commentDiv.innerHTML = `<p><strong>${name} :</strong> ${text}</p>`;
+
+      commentsList.appendChild(commentDiv);
+
+      commentForm.reset();
+
+      // Pour une gestion complète, intégrez ici une requête AJAX pour enregistrer le commentaire côté serveur
+    });
+  }
+});
